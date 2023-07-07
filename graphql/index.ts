@@ -6,7 +6,7 @@ export const createProjectMutation = `
 				title
 				description
 				createdBy {
-					name,
+					username,
           email,
           avatarUrl,
           description
@@ -24,7 +24,7 @@ export const updateProjectMutation = `
 				title
 				description
 				createdBy {
-					name,
+					username,
           email,
           avatarUrl,
           description
@@ -46,7 +46,7 @@ export const createUserMutation = `
 	mutation CreateUser($input: UserCreateInput!) {
 		userCreate(input: $input) {
 			user {
-				name
+				username
 				email
 				avatarUrl
 				description
@@ -79,7 +79,7 @@ export const projectsQuery = `
           createdBy {
             id
             email
-            name
+            username
             avatarUrl
           }
         }
@@ -100,7 +100,7 @@ export const getProjectByIdQuery = `
       category
       createdBy {
         id
-        name
+        username
         email
         avatarUrl
       }
@@ -112,7 +112,7 @@ export const getUserQuery = `
   query GetUser($email: String!) {
     user(by: { email: $email }) {
       id
-      name
+      username
       email
       avatarUrl
       description
@@ -126,7 +126,7 @@ export const getProjectsOfUserQuery = `
   query getUserProjects($id: ID!, $last: Int = 4) {
     user(by: { id: $id }) {
       id
-      name
+      username
       email
       description
       avatarUrl

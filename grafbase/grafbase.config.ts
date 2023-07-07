@@ -20,7 +20,11 @@ const Project=g.model('Project',{
   liveSiteUrl:g.url(),
   githubUrl:g.url(),
   category:g.string().search(),
-  createdBy:g.relation(()=>User),
+  createdBy:{
+    email:g.string().unique(),
+    name:g.string(),
+    avatarUrl:g.url(),
+  },
 }).auth((rules)=>{
   rules.public().read(),
   rules.private().create().update().delete()

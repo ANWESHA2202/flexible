@@ -1,7 +1,7 @@
 import { g, auth, config } from '@grafbase/sdk';
 
 
-const user=g.type('user',{
+const user=g.type('usertype',{
   name: g.string(),
   email: g.string(),
   avatarUrl: g.url(),

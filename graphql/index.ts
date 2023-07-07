@@ -6,8 +6,10 @@ export const createProjectMutation = `
 				title
 				description
 				createdBy {
-					email
-					name
+					name,
+          email,
+          avatarUrl,
+          description
 				}
 			}
 		}
@@ -22,8 +24,10 @@ export const updateProjectMutation = `
 				title
 				description
 				createdBy {
-					email
-					name
+					name,
+          email,
+          avatarUrl,
+          description
 				}
 			}
 		}
@@ -47,7 +51,7 @@ export const createUserMutation = `
 				avatarUrl
 				description
 				githubUrl
-				linkedInUrl
+				linkedinUrl
 				id
 			}
 		}
@@ -113,7 +117,7 @@ export const getUserQuery = `
       avatarUrl
       description
       githubUrl
-      linkedInUrl
+      linkedinUrl
     }
   }
 `;
@@ -127,7 +131,7 @@ export const getProjectsOfUserQuery = `
       description
       avatarUrl
       githubUrl
-      linkedInUrl
+      linkedinUrl
       projects(last: $last) {
         edges {
           node {

@@ -30,7 +30,7 @@ const ProjectForm = ({type,session}:Props) => {
         const {token}=await fetchToken();
         try{
             if(type==='create'){
-                await createNewProject(form,session?.user?.email,token);
+                await createNewProject(form,session?.user,token);
                 router.push('/')
             }
         }catch(err){

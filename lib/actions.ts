@@ -1,5 +1,5 @@
-import { ProjectForm } from "@/common.types";
-import { createProjectMutation, createUserMutation, getUserQuery, projectsQuery } from "@/graphql";
+import { ProjectForm, SessionInterface } from "@/common.types";
+import { createProjectMutation, createUserMutation, deleteProjectMutation, getProjectByIdQuery, getUserQuery, projectsQuery } from "@/graphql";
 import { GraphQLClient} from "graphql-request";
 
 const isProduction=process.env.NODE_ENV==='production';
@@ -53,20 +53,18 @@ export const uploadImage=async (imagePath:string)=>{
         console.log(error)
     }
 }
-export const createNewProject = async (form: ProjectForm, creatorId: string, token: string) => {
+export const createNewProject = async (form: ProjectForm, creatorId: SessionInterface['user'], token: string) => {
     const imageUrl = await uploadImage(form.image);
   
     if (imageUrl.url) {
-      client.setHeader("Authorization", `Bearer ${token}`);
+    //   client.setHeader("Authorization", `Bearer ${token}`);
+    client.setHeader('x-api-key',apiKey)
   
       const variables = {
         input: { 
           ...form, 
           image: imageUrl.url, 
-          createdBy: { 
-            email: creatorId,
-            name:'creator'
-          }
+          createdBy: creatorId
         }
       };
   
@@ -77,4 +75,14 @@ export const createNewProject = async (form: ProjectForm, creatorId: string, tok
 export const fetchAllProjects=async(category?:string,endcursor?:string)=>{
     client.setHeader('x-api-key',apiKey)
     return makeGraphQLRequest(projectsQuery,{category,endcursor})
+}
+
+export const getProjectDetails=(id:string)=>{
+    client.setHeader('x-api-key',apiKey)
+    return makeGraphQLRequest(getProjectByIdQuery,{id})
+}
+
+export const deleteProject=(id:string,token:string)=>{
+    client.setHeader('x-api-key',apiKey)
+    return makeGraphQLRequest(deleteProjectMutation,{id})
 }
